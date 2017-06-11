@@ -1,5 +1,7 @@
 package GUI;
 
+import RAID.Errors;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -37,17 +39,25 @@ public class MainWindow {
 
 
     public MainWindow() {
+        Errors err = new Errors();
+        inputData.setText(err.getData());
+        textField1.setText(err.getBits());
         zmienKilkaBitowButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 inputData.setEditable(true);
             }
         });
+
         zatwierdzButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 inputData.setEditable(false);
-
+            }
+        });
+        zmien1LosowyBitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
 
             }
         });
