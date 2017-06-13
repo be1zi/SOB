@@ -1,6 +1,6 @@
 package Main;
 
-import RAID.Errors;
+import RAID.Filess;
 
 /**
  * Created by Złoty on 2017-06-11.
@@ -9,7 +9,7 @@ public class Main {
 
     public static void main(String [ ] args){
 
-        Errors err = new Errors();
+        Filess err = new Filess();
 
     }
 }

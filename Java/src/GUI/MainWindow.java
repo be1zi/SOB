@@ -1,6 +1,7 @@
 package GUI;
 
 import RAID.Errors;
+import RAID.Filess;
 
 import javax.swing.*;
 import java.awt.*;
@@ -39,8 +40,8 @@ public class MainWindow {
 
 
     public MainWindow() {
-        Errors err = new Errors();
-        inputData.setText(err.getData());
+        Filess err = new Filess();
+        inputData.setText(err.getData_1());
         textField1.setText(err.getBits());
         zmienKilkaBitowButton.addActionListener(new ActionListener() {
             @Override
@@ -53,14 +54,27 @@ public class MainWindow {
             @Override
             public void actionPerformed(ActionEvent e) {
                 inputData.setEditable(false);
+                inputData.getText();
             }
         });
         zmien1LosowyBitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                Errors error = new Errors();
+                String tmp=inputData.getText();
+                //inputData.setText(tmp);
+                outputData.setText(error.generateError(tmp));
             }
         });
+        odwrocWszystkieBityButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Errors error = new Errors();
+                String tmp=inputData.getText();
+                outputData.setText(error.rotateArray(tmp));
+            }
+        });
+
     }
 
     public static void main(String[] args) {

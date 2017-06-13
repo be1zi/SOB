@@ -1,199 +1,48 @@
 package RAID;
 
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.util.Random;
 
 /**
- * Created by Belzi on 2017-06-11.
+ * Created by Kamil on 2017-06-13.
  */
 public class Errors {
 
-    private String data;
-    private String bits;
-    private String enterData="1101101";
-
-   public Errors(){
-
-       saveData(enterData, setCalculatedBits());
-       loadData();
-       //textFiles();
+    public Errors(){
     }
 
+    public String generateError(String input){
 
-    private void loadData() {
+        String output="";
+        char[] tab = input.toCharArray();
 
-        //pobranie  nazwy użytkownika z systemu
-        String username = System.getProperty("user.name");
+        Random r = new Random();
+        int tmp = r.nextInt(input.length());
+        System.out.println(tmp);
+        if(tab[tmp]==0)
+            tab[tmp]=1;
+        else
+            tab[tmp]=0;
 
-        //scieżki dostępu
-        String pathFolder = "C:/Users/" + username + "/Documents/RAID";
-        String pathDataFile = pathFolder + "/Dane.txt";
-        String pathBitsFile = pathFolder + "/Bity.txt";
-
-        if (!Files.exists(Paths.get(pathFolder))) {
-            System.out.println("Brak Katalogu");
-            System.exit(0);
+        for(int i=0;i<tab.length;i++){
+            output+=tab[i];
         }
 
-        if (!Files.exists(Paths.get(pathDataFile))) {
-            System.out.println("Brak pliku z danymi");
-            System.exit(0);
-        }
-
-        if (!Files.exists(Paths.get(pathBitsFile))) {
-            System.out.println("Brak pliku z bitami");
-            System.exit(0);
-        }
-
-        try {
-            BufferedReader in = new BufferedReader(new FileReader(pathDataFile));
-            System.out.println("Udało się otworzyć plik z danymi");
-            data=in.readLine();
-            System.out.println(data);
-            in.close();
-        }catch(IOException e){
-            e.printStackTrace();
-        }
-
-        try {
-            BufferedReader in = new BufferedReader(new FileReader(pathBitsFile));
-            System.out.println("Udało się otworzyć plik z bitami");
-            bits=in.readLine();
-            System.out.println(bits);
-            in.close();
-        }catch(IOException e){
-            e.printStackTrace();
-        }
-
+        return output;
     }
 
-    //zapisywanie danych do plików
-    private void saveData(String data, String bits){
+    public String rotateArray(String input){
+        String output="";
+        char[] tab = input.toCharArray();
 
-        //pobranie  nazwy użytkownika z systemu
-        String username = System.getProperty("user.name");
-
-        //scieżki dostępu
-        String pathFolder="C:/Users/"+username+"/Documents/RAID";
-        String pathDataFile=pathFolder+"/Dane.txt";
-        String pathBitsFile=pathFolder+"/Bity.txt";
-
-
-        //utworzenie katalogu w moich dokumentach
-        if(!Files.exists(Paths.get(pathFolder))){
-            try {
-                Files.createDirectory(Paths.get(pathFolder));
-                System.out.println("Utworzono katalog");
-            }catch(IOException e){
-                e.printStackTrace();
-            }
+        for(int i=0;i<tab.length;i++){
+            if(tab[i]=='0')
+                output+=1;
+            else
+                output+=0;
         }
 
-        //utworzenie pliku w moich dokumentach
-        if(!Files.exists(Paths.get(pathDataFile))){
-            try {
-                Files.createFile(Paths.get(pathDataFile));
-                System.out.println("Utoworzono plik z Danymi");
-            }catch(IOException e){
-                e.printStackTrace();
-            }
-        }
-
-        //utworzenie pliku w moich dokumentach
-        if(!Files.exists(Paths.get(pathBitsFile))){
-            try {
-                Files.createFile(Paths.get(pathBitsFile));
-                System.out.println("Utoworzono plik z Bitami");
-            }catch(IOException e){
-                e.printStackTrace();
-            }
-        }
-
-        try {
-            BufferedWriter out = new BufferedWriter(new FileWriter(pathDataFile));
-            out.write(data);
-            out.close();
-        }catch(IOException e){
-            e.printStackTrace();
-        }
-
-        try {
-            BufferedWriter out = new BufferedWriter(new FileWriter(pathBitsFile));
-            out.write(bits);
-            out.close();
-        }catch(IOException e){
-            e.printStackTrace();
-        }
-
+        System.out.println(output);
+        return output;
     }
 
-    // generowanie raportu
-    private void textFiles() {
-
-        //pobranie  nazwy użytkownika z systemu
-        String username = System.getProperty("user.name");
-
-        //scieżki dostępu
-        String pathFolder="C:/Users/"+username+"/Documents/RAID";
-        String pathFile=pathFolder+"/Raport.txt";
-
-        //utworzenie katalogu w moich dokumentach
-        if(!Files.exists(Paths.get(pathFolder))){
-            try {
-                Files.createDirectory(Paths.get(pathFolder));
-                System.out.println("Utworzono katalog");
-            }catch(IOException e){
-                e.printStackTrace();
-            }
-        }
-
-        //utworzenie pliku w moich dokumentach
-        if(!Files.exists(Paths.get(pathFile))){
-            try {
-                Files.createFile(Paths.get(pathFile));
-                System.out.println("Utoworzono plik z raportem");
-            }catch(IOException e){
-                e.printStackTrace();
-            }
-        }
-
-        try {
-            BufferedWriter out = new BufferedWriter(new FileWriter(pathFile));
-            out.write("123");
-            out.close();
-        }catch(IOException e){
-            e.printStackTrace();
-        }
-    }
-    public void genetateRaport(){
-
-    }
-
-    private int xor(int a ,int b){
-
-        if(a==b)
-            return 0;
-        else return 1;
-    }
-
-    public String getData() {
-        return data;
-    }
-
-    public String getBits() {
-        return bits;
-    }
-
-    private String setCalculatedBits(){
-
-        String result="";
-       char[] arr= enterData.toCharArray();
-        for (int i=0;i<arr.length/2;i++) {
-            result+=xor(arr[i*2],arr[i*2+1]);
-        }
-        if(arr.length%2==1)
-            result+=arr[arr.length-1];
-        return result;
-    }
 }
