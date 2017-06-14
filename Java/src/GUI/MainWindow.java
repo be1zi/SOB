@@ -41,7 +41,7 @@ public class MainWindow {
 
     public MainWindow() {
         Filess err = new Filess();
-        inputData.setText(err.getData_1());
+        inputData.setText(err.getData());
         textField1.setText(err.getBits());
         zmienKilkaBitowButton.addActionListener(new ActionListener() {
             @Override
@@ -54,7 +54,9 @@ public class MainWindow {
             @Override
             public void actionPerformed(ActionEvent e) {
                 inputData.setEditable(false);
-                inputData.getText();
+                String tmp=inputData.getText();
+                outputData.setText(tmp);
+                inputData.setText(err.getData());
             }
         });
         zmien1LosowyBitButton.addActionListener(new ActionListener() {

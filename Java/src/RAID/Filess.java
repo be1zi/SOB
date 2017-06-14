@@ -152,7 +152,7 @@ public class Filess {
             for(int i=0;i<arr.length/2;i++){
                 out_1.write(arr[i*2]);
                 out_2.write(arr[i*2+1]);
-                int tmp=xor(arr[i*2],arr[i*2+1]);
+                char tmp=xor(arr[i*2],arr[i*2+1]);
                 outBit.write(tmp);
             }
 
@@ -209,18 +209,15 @@ public class Filess {
     }
 
 
-    private int xor(int a ,int b){
+    private char xor(int a ,int b){
 
         if(a==b)
-            return 0;
-        else return 1;
+            return '0';
+        else return '1';
     }
 
-    public String getData_1() {
+    public String getData() {
 
-        while(true){
-            break;
-        }
         return data;
     }
 
