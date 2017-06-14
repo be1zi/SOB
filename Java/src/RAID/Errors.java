@@ -45,4 +45,29 @@ public class Errors {
         return output;
     }
 
+    private char xor(int a ,int b){
+
+        if(a==b)
+            return '0';
+        else return '1';
+    }
+
+    public boolean isCorrect(String out, String bits){
+
+        boolean tmp = true;
+        char[] arr = out.toCharArray();
+        char[] bitsArr = bits.toCharArray();
+
+        for(int i=0;i<arr.length/2;i++){
+            if(xor(arr[i*2],arr[i*2+1])!=(int)bitsArr[i])
+                tmp = false;
+        }
+        if(arr.length%2!=0){
+            if((int)arr[arr.length-1]!=(int)bitsArr[bitsArr.length-1])
+                tmp=false;
+        }
+
+        return tmp;
+    }
+
 }

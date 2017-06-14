@@ -57,6 +57,9 @@ public class MainWindow {
                 String tmp=inputData.getText();
                 outputData.setText(tmp);
                 inputData.setText(err.getData());
+
+                Errors error = new Errors();
+                System.out.println(error.isCorrect(outputData.getText(), err.getBits()));
             }
         });
         zmien1LosowyBitButton.addActionListener(new ActionListener() {
@@ -66,6 +69,8 @@ public class MainWindow {
                 String tmp=inputData.getText();
                 //inputData.setText(tmp);
                 outputData.setText(error.generateError(tmp));
+
+                System.out.println(error.isCorrect(outputData.getText(), err.getBits()));
             }
         });
         odwrocWszystkieBityButton.addActionListener(new ActionListener() {
@@ -74,6 +79,8 @@ public class MainWindow {
                 Errors error = new Errors();
                 String tmp=inputData.getText();
                 outputData.setText(error.rotateArray(tmp));
+
+               System.out.println(error.isCorrect(outputData.getText(), err.getBits()));
             }
         });
 
