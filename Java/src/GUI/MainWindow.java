@@ -69,6 +69,8 @@ public class MainWindow {
                 String tmp=inputData.getText();
                 //inputData.setText(tmp);
                 outputData.setText(error.generateError(tmp));
+                System.out.println(inputData.getText());
+                System.out.println(outputData.getText());
 
                 System.out.println(error.isCorrect(outputData.getText(), err.getBits()));
             }

@@ -231,12 +231,17 @@ public class Filess {
         char[] tmp1 = data1.toCharArray();
         char[] tmp2 = data2.toCharArray();
 
+        System.out.println("Dlugosc danych 1: "+tmp1.length);
+        System.out.println("Dlugosc danych 2: "+tmp2.length);
+
+
         for(int i=0;i<tmp1.length;i++){
             data+=tmp1[i];
             data+=tmp2[i];
         }
         if(tmp1.length!=tmp2.length)
             data+=tmp1[tmp1.length];
+        System.out.println("Zmergowane dane: "+data + " ,Rozmiar : " +data.length());
     }
 
 }
