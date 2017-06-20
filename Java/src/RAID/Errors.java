@@ -32,7 +32,7 @@ public class Errors {
 
     public String rotateArray(String input){
 
-       System.out.println("Dane przed obruceniem: "+ input);
+       System.out.println("Dane przed obroceniem: "+ input);
         String output="";
         char[] tab = input.toCharArray();
 
@@ -56,7 +56,7 @@ public class Errors {
            }
         }
 
-        System.out.println("Dane po obruceniu:     "+output);
+        System.out.println("Dane po obroceniu:     "+output);
         return output;
     }
 
