@@ -23,6 +23,8 @@ public class MainWindow {
     private JTextPane outputData;
     private JTextPane textField1;
     private JButton zatwierdzButton;
+    private JTextPane disk1;
+    private JTextPane disk2;
     private static JFrame frame;
 
 
@@ -44,6 +46,12 @@ public class MainWindow {
         Metoda koloruje bledne bity
      */
     private void setColourForEachBit(String error){
+        String tmp = inputData.getText();
+
+        /*if(!error.equals(tmp)){
+            tmp = error;
+        }*/
+
         StyledDocument doc = outputData.getStyledDocument();
 
         Style style = outputData.addStyle("Red coloured text", null);
@@ -55,13 +63,13 @@ public class MainWindow {
         for(int i=0; i<error.length(); i++) {
             if(inputData.getText().charAt(i) != error.charAt(i)){
                 try {
-                    doc.insertString(i, String.valueOf(error.charAt(i)), style);
+                    doc.insertString(i, String.valueOf(tmp.charAt(i)), style);
                 } catch (BadLocationException e) {
                     e.printStackTrace();
                 }
             } else {
                 try {
-                    doc.insertString(i, String.valueOf(error.charAt(i)), style2);
+                    doc.insertString(i, String.valueOf(tmp.charAt(i)), style2);
                 } catch (BadLocationException e) {
                     e.printStackTrace();
                 }
@@ -73,6 +81,7 @@ public class MainWindow {
         Metoda koloruje bledne bity parzystosci
      */
     private void setColourForParityBits(String error){
+        String tmp = outputData.getText();
 
         StyledDocument doc = textField1.getStyledDocument();
 
@@ -82,12 +91,12 @@ public class MainWindow {
         Style style2 = textField1.addStyle("Black coloured text", null);
         StyleConstants.setBackground(style2, Color.white);
 
-        System.out.println(outputData.getText());
+        System.out.println(tmp);
         System.out.println(error);
         int j = 0;
-        for(int i=0; i<outputData.getText().length(); i+=2) {
-            if((outputData.getText().charAt(i) != outputData.getText().charAt(i+1) && error.charAt(j) == '0') ||
-                    (outputData.getText().charAt(i) == outputData.getText().charAt(i+1) && error.charAt(j) == '1')){
+        for(int i=0; i<tmp.length(); i+=2) {
+            if((tmp.charAt(i) != tmp.charAt(i+1) && error.charAt(j) == '0') ||
+                    (tmp.charAt(i) == tmp.charAt(i+1) && error.charAt(j) == '1')){
                 try {
                     //System.out.println("IF red");
                     doc.insertString(j, String.valueOf(error.charAt(j)), style);
@@ -128,11 +137,12 @@ public class MainWindow {
                 inputData.setEditable(false);
                 try {
                     if (checkIfBit()) {
+                        //kolorowanie i wypisywanie
                         outputData.setText("");
+                        Errors error = new Errors();
                         setColourForEachBit(err.getData());
                         inputData.setText(err.getData());
 
-                        Errors error = new Errors();
                         System.out.println(error.isCorrect(outputData.getText(), err.getBits()));
                     } else {
                         inputData.setText(err.getData());
@@ -141,6 +151,8 @@ public class MainWindow {
                 } catch(ArrayIndexOutOfBoundsException aIOOBE){
                     outputData.setText("Podaj na wejsciu poprawna ilosc bitow");
                 }
+
+                //kolorowanie i wypisywanie bitow parzystosci
                 textField1.setText("");
                 setColourForParityBits(err.getBits());
             }
@@ -152,16 +164,19 @@ public class MainWindow {
                 Errors error = new Errors();
                 String tmp = inputData.getText();
 
-                System.out.println(inputData.getText());
-                System.out.println(outputData.getText());
-
-                System.out.println(error.isCorrect(outputData.getText(), err.getBits()));
-
-                setColourForEachBit(error.generateError(tmp));
+                inputData.setText(error.generateError(tmp));
+                //kolorowanie i wypisywanie
+                setColourForEachBit(tmp);
+                inputData.setText(err.getData());
 
 
+                //kolorowanie i wypisywanie bitow parzystosci
                 textField1.setText("");
                 setColourForParityBits(err.getBits());
+
+                System.out.println(inputData.getText());
+                System.out.println(outputData.getText());
+                System.out.println(error.isCorrect(outputData.getText(), err.getBits()));
             }
         });
         odwrocWszystkieBityButton.addActionListener(new ActionListener() {
@@ -172,10 +187,14 @@ public class MainWindow {
                 String tmp = inputData.getText();
 
                 System.out.println(error.isCorrect(outputData.getText(), err.getBits()));
+                inputData.setText(error.rotateArray(tmp));
+                //kolorowanie i wypisywanie
+                setColourForEachBit(tmp);
+                
+                inputData.setText(err.getData());
 
-                setColourForEachBit(error.rotateArray(tmp));
 
-
+                //kolorowanie i wypisywanie bitow parzystosci
                 textField1.setText("");
                 setColourForParityBits(err.getBits());
             }
