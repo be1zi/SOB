@@ -52,26 +52,48 @@ public class MainWindow {
             tmp = error;
         }*/
 
-        StyledDocument doc = outputData.getStyledDocument();
+        StyledDocument doc = outputData.getStyledDocument();        //wyjscie dla calosci - kolor
+        StyledDocument doc_disk1 = disk1.getStyledDocument();            //wyjscie dla dysku 1 - kolor
+        StyledDocument doc_disk2 = disk2.getStyledDocument();            //wyjscie dla dysku 2 - kolor
 
         Style style = outputData.addStyle("Red coloured text", null);
+        Style style_disk1 = disk1.addStyle("Red coloured tex", null);
+        Style style_disk2 = disk2.addStyle("Red coloured te", null);
         StyleConstants.setBackground(style, Color.red);
+        StyleConstants.setBackground(style_disk1, Color.red);
+        StyleConstants.setBackground(style_disk2, Color.red);
 
         Style style2 = outputData.addStyle("Black coloured text", null);
+        Style style2_disk1 = disk1.addStyle("Black coloured tex", null);
+        Style style2_disk2 = disk2.addStyle("Black coloured te", null);
         StyleConstants.setBackground(style2, Color.white);
+        StyleConstants.setBackground(style2_disk1, Color.white);
+        StyleConstants.setBackground(style2_disk2, Color.white);
 
+        int j = 0;
+        int k = 0;
         for(int i=0; i<error.length(); i++) {
             if(inputData.getText().charAt(i) != error.charAt(i)){
                 try {
                     doc.insertString(i, String.valueOf(tmp.charAt(i)), style);
+                    if(i % 2 == 0){     //dla dysku 1
+                        doc_disk1.insertString(j++, String.valueOf(tmp.charAt(i)), style_disk1);
+                    } else {            //dla dysku 2
+                        doc_disk2.insertString(k++, String.valueOf(tmp.charAt(i)), style_disk2);
+                    }
                 } catch (BadLocationException e) {
                     e.printStackTrace();
                 }
             } else {
                 try {
                     doc.insertString(i, String.valueOf(tmp.charAt(i)), style2);
+                    if(i % 2 == 0){      //dla dysku 1
+                        doc_disk1.insertString(j++, String.valueOf(tmp.charAt(i)), style2_disk1);
+                    } else {             //dla dysku 2
+                        doc_disk2.insertString(k++, String.valueOf(tmp.charAt(i)), style2_disk2);
+                    }
                 } catch (BadLocationException e) {
-                    e.printStackTrace();
+                    //e.printStackTrace();
                 }
             }
         }
@@ -139,6 +161,8 @@ public class MainWindow {
                     if (checkIfBit()) {
                         //kolorowanie i wypisywanie
                         outputData.setText("");
+                        disk1.setText("");
+                        disk2.setText("");
                         Errors error = new Errors();
                         setColourForEachBit(err.getData());
                         inputData.setText(err.getData());
@@ -161,6 +185,9 @@ public class MainWindow {
             @Override
             public void actionPerformed(ActionEvent e) {
                 outputData.setText("");
+                disk1.setText("");
+                disk2.setText("");
+
                 Errors error = new Errors();
                 String tmp = inputData.getText();
 
@@ -183,6 +210,9 @@ public class MainWindow {
             @Override
             public void actionPerformed(ActionEvent e) {
                 outputData.setText("");
+                disk1.setText("");
+                disk2.setText("");
+
                 Errors error = new Errors();
                 String tmp = inputData.getText();
 
@@ -190,7 +220,7 @@ public class MainWindow {
                 inputData.setText(error.rotateArray(tmp));
                 //kolorowanie i wypisywanie
                 setColourForEachBit(tmp);
-                
+
                 inputData.setText(err.getData());
 
 
