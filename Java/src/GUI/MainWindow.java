@@ -47,10 +47,10 @@ public class MainWindow {
         StyledDocument doc = outputData.getStyledDocument();
 
         Style style = outputData.addStyle("Red coloured text", null);
-        StyleConstants.setForeground(style, Color.red);
+        StyleConstants.setBackground(style, Color.red);
 
         Style style2 = outputData.addStyle("Black coloured text", null);
-        StyleConstants.setForeground(style2, Color.black);
+        StyleConstants.setBackground(style2, Color.white);
 
         for(int i=0; i<error.length(); i++) {
             if(inputData.getText().charAt(i) != error.charAt(i)){
@@ -77,17 +77,17 @@ public class MainWindow {
         StyledDocument doc = textField1.getStyledDocument();
 
         Style style = textField1.addStyle("Red coloured text", null);
-        StyleConstants.setForeground(style, Color.red);
+        StyleConstants.setBackground(style, Color.red);
 
         Style style2 = textField1.addStyle("Black coloured text", null);
-        StyleConstants.setForeground(style2, Color.black);
+        StyleConstants.setBackground(style2, Color.white);
 
         System.out.println(outputData.getText());
         System.out.println(error);
         int j = 0;
         for(int i=0; i<outputData.getText().length(); i+=2) {
-            if((outputData.getText().charAt(i) != outputData.getText().charAt(i+1) && error.charAt(j) == 0) ||
-                    (outputData.getText().charAt(i) == outputData.getText().charAt(i+1) && error.charAt(j) == 1)){
+            if((outputData.getText().charAt(i) != outputData.getText().charAt(i+1) && error.charAt(j) == '0') ||
+                    (outputData.getText().charAt(i) == outputData.getText().charAt(i+1) && error.charAt(j) == '1')){
                 try {
                     //System.out.println("IF red");
                     doc.insertString(j, String.valueOf(error.charAt(j)), style);
