@@ -8,6 +8,7 @@ import javax.swing.text.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.nio.file.Files;
 
 /**
  * Created by Złoty on 2017-06-11.
@@ -157,13 +158,13 @@ public class MainWindow {
             @Override
             public void actionPerformed(ActionEvent e) {
                 inputData.setEditable(false);
+                Errors error = new Errors();
                 try {
                     if (checkIfBit()) {
                         //kolorowanie i wypisywanie
                         outputData.setText("");
                         disk1.setText("");
                         disk2.setText("");
-                        Errors error = new Errors();
                         setColourForEachBit(err.getData());
                         inputData.setText(err.getData());
 
@@ -179,6 +180,8 @@ public class MainWindow {
                 //kolorowanie i wypisywanie bitow parzystosci
                 textField1.setText("");
                 setColourForParityBits(err.getBits());
+                err.genetateRaport(inputData.getText(),disk1.getText(),disk2.getText(),textField1.getText(),error.brokenBits);
+
             }
         });
         zmien1LosowyBitButton.addActionListener(new ActionListener() {
@@ -204,6 +207,8 @@ public class MainWindow {
                 System.out.println(inputData.getText());
                 System.out.println(outputData.getText());
                 System.out.println(error.isCorrect(outputData.getText(), err.getBits()));
+
+                err.genetateRaport(inputData.getText(),disk1.getText(),disk2.getText(),textField1.getText(),error.brokenBits);
             }
         });
         odwrocWszystkieBityButton.addActionListener(new ActionListener() {
@@ -216,7 +221,7 @@ public class MainWindow {
                 Errors error = new Errors();
                 String tmp = inputData.getText();
 
-                System.out.println(error.isCorrect(outputData.getText(), err.getBits()));
+
                 inputData.setText(error.rotateArray(tmp));
                 //kolorowanie i wypisywanie
                 setColourForEachBit(tmp);
@@ -227,6 +232,11 @@ public class MainWindow {
                 //kolorowanie i wypisywanie bitow parzystosci
                 textField1.setText("");
                 setColourForParityBits(err.getBits());
+
+                System.out.println(error.isCorrect(outputData.getText(), err.getBits()));
+                System.out.println("Wyjście: "+outputData.getText());
+
+                err.genetateRaport(inputData.getText(),disk1.getText(),disk2.getText(),textField1.getText(),error.brokenBits);
             }
         });
 

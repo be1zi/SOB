@@ -22,7 +22,6 @@ public class Filess {
        //textFiles();
     }
 
-
     private void loadData() {
 
         //pobranie  nazwy użytkownika z systemu
@@ -170,7 +169,7 @@ public class Filess {
     }
 
     // generowanie raportu
-    private void genetateRaport() {
+    public void genetateRaport(String input, String disk1, String disk2, String bits,String errors) {
 
         //pobranie  nazwy użytkownika z systemu
         String username = System.getProperty("user.name");
@@ -201,7 +200,18 @@ public class Filess {
 
         try {
             BufferedWriter out = new BufferedWriter(new FileWriter(pathFile));
-            out.write("123");
+            margeData(disk1,disk2);
+            out.write("Dane wejściowe: "+input + "     "+"Dysk 1: "+data_1 + "     Dysk 2: "+data_2 + "\r\n");
+            out.write("Dane wyjściowe: "+data+"     "+ "Dysk 1: "+disk1+"     Dysk 2: "+disk2+"\r\n");
+            out.write("Bity parzystości: "+bits+"\r\n");
+
+            if(!data_1.equals(disk1) && !data_2.equals(disk2))
+                out.write(errors+" uszkodzony dysk 1 i 2");
+            else if(!data_1.equals(disk1))
+                out.write(errors+" na dysku 1");
+            else if(!data_2.equals(disk2))
+                out.write(errors+" na dysku 2");
+
             out.close();
         }catch(IOException e){
             e.printStackTrace();
@@ -233,7 +243,7 @@ public class Filess {
 
         System.out.println("Dlugosc danych 1: "+tmp1.length);
         System.out.println("Dlugosc danych 2: "+tmp2.length);
-
+        data="";
 
         for(int i=0;i<tmp1.length;i++){
             data+=tmp1[i];

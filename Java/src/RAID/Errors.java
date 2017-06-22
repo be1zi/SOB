@@ -7,6 +7,8 @@ import java.util.Random;
  */
 public class Errors {
 
+    public String brokenBits="Uszkodzone bity na pozycjach (numerujac od 0): ";
+
     public Errors(){
     }
 
@@ -73,13 +75,19 @@ public class Errors {
         char[] arr = out.toCharArray();
         char[] bitsArr = bits.toCharArray();
 
+        brokenBits="Uszkodzone bity na pozycjach (numerujac od 0): ";
+
         for(int i=0;i<arr.length/2;i++){
-            if(xor(arr[i*2],arr[i*2+1])!=bitsArr[i])
+            if(xor(arr[i*2],arr[i*2+1])!=bitsArr[i]) {
                 tmp = false;
+                brokenBits+=i+" ";
+            }
         }
         if(arr.length%2!=0){
-            if((int)arr[arr.length-1]!=bitsArr[bitsArr.length-1])
-                tmp=false;
+            if((int)arr[arr.length-1]!=bitsArr[bitsArr.length-1]) {
+                tmp = false;
+                brokenBits+=arr.length-1;
+            }
         }
 
         return tmp;
